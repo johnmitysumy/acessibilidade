@@ -110,15 +110,3 @@ PHP é executado no servidor, o que garante que o código fonte não seja expost
 <br>
     </p>
 </div>
-
-<li class="pojo-a11y-toolbar-item">
-  <a href="#" onclick="Leitura(); return false;" class="pojo-a11y-toolbar-link" tabindex="0" role="link">
-    <span class="pojo-a11y-toolbar-icon">
-      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="1em" viewBox="0 0 448 448">
-        <title>Leitura de Texto</title>
-        <path fill="currentColor" d="M224 32C100 32 0 132 0 256s100 224 224 224 224-100 224-224S348 32 224 32zM144 320h-48v-96h48v96zm208 0h-48v-96h48v96z"/>
-      </svg>
-    </span>
-    <span class="pojo-a11y-toolbar-text">Leitura</span>
-  </a>
-</li>
