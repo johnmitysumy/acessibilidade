@@ -35,3 +35,40 @@ function togglePainelAcessibilidade() {
   const painel = document.getElementById('painel-acessibilidade');
   painel.style.display = (painel.style.display === 'none' || painel.style.display === '') ? 'block' : 'none';
 }
+
+
+
+let leituraAtiva = false;
+
+function Leitura() {
+  leituraAtiva = !leituraAtiva;
+  
+  const elementos = document.querySelectorAll('body *:not(script):not(style):not(#painel-acessibilidade *):not(#btn-acessibilidade)');
+  
+  elementos.forEach(el => {
+    if (leituraAtiva) {
+      el.addEventListener('mouseenter', iniciarLeitura);
+    } else {
+      el.removeEventListener('mouseenter', iniciarLeitura);
+    }
+  });
+}
+
+function iniciarLeitura(event) {
+  const texto = event.target.innerText || event.target.alt || '';
+  if (!texto) return;
+  window.speechSynthesis.cancel(); // cancela leitura anterior
+  const utterance = new SpeechSynthesisUtterance(texto);
+  window.speechSynthesis.speak(utterance);
+}
+
+function desativarLeitura() {
+  leituraAtiva = false;
+  window.speechSynthesis.cancel();
+
+  const elementos = document.querySelectorAll('body *:not(script):not(style):not(#painel-acessibilidade *):not(#btn-acessibilidade)');
+
+  elementos.forEach(el => {
+    el.removeEventListener('mouseenter', iniciarLeitura);
+  });
+}
