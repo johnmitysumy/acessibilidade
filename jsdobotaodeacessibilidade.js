@@ -1,8 +1,8 @@
 let tamanhoFonte = 100;
 
 function ajustarFonte(acao) {
-  if (acao === '+') tamanhoFonte += 10;
-  else tamanhoFonte -= 10;
+  if (acao === '+') tamanhoFonte += 5;
+  else tamanhoFonte -= 5;
   tamanhoFonte = Math.min(Math.max(tamanhoFonte, 50), 200);
 
   const elementos = document.querySelectorAll('body *:not(#painel-acessibilidade):not(#painel-acessibilidade *)' +

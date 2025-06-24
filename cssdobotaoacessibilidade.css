@@ -1,15 +1,16 @@
+
+  /* Botão flutuante */
+
   /* Botão flutuante */
 #btn-acessibilidade {
   position: fixed;
-  bottom: 20px;
+  bottom: 55%;
   right: 20px;
   z-index: 10000;
-  background: #0073e6;
   color: #fff;
   border: none;
   border-radius: 50%;
-  width: 48px;
-  height: 48px;
+  width: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,7 +20,7 @@
 /* Painel de acessibilidade */
 .pojo-a11y-toolbar-overlay {
   position: fixed;
-  bottom: 80px;
+  bottom: 27%;
   right: 20px;
   z-index: 9999;
   background: #f9f9f9;
@@ -27,7 +28,7 @@
   padding: 12px;
   border-radius: 8px;
   font-family: Arial, sans-serif;
-  width: 260px;
+  width: 200px;
   display: none;
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
@@ -51,14 +52,16 @@
 }
 
 /* Estilos aplicados */
-body.high-contrast {
+body.high-contrast *:not(#btn-acessibilidade):not(#painel-acessibilidade){
   background: #000 !important;
   color: #fff !important;
 }
-body.negative-contrast {
+body.negative-contrast *:not(#btn-acessibilidade):not(#painel-acessibilidade){
   background: #000 !important;
   color: #ff0 !important;
+  filter: invert(100%);
 }
+
 body.grayscale *:not(#btn-acessibilidade):not(#painel-acessibilidade) {
   filter: grayscale(100%);
 }
