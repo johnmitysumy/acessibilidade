@@ -1,0 +1,270 @@
+
+<!-- Floating Accessibility Button -->
+<style>
+.fab-container {
+  position: fixed;
+  bottom: 120px;
+  right: 32px;
+  z-index: 9999;
+}
+
+.fab-main {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #333;
+  color: #fff;
+  border: none;
+  font-size: 28px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.fab-main:hover {
+  background: #555;
+}
+
+.fab-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  margin-bottom: 8px;
+}
+
+.fab-container:hover .fab-actions,
+.fab-container:focus-within .fab-actions {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.fab-action {
+  margin-bottom: 12px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  font-size: 22px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fab-action:last-child {
+  margin-bottom: 0;
+}
+
+.fab-action:hover {
+  background: #1565c0;
+}
+
+/* Tons de cinza */
+html.grayscale,
+body.grayscale {
+  filter: grayscale(100%) !important;
+}
+
+/* Excluir do grayscale os elementos abaixo */
+.fab-container,
+.fab-container *,
+#painel-acessibilidade,
+#painel-acessibilidade *,
+[vw],
+[vw] *,
+[vw-access-button],
+[vw-access-button] * {
+  filter: none !important;
+}
+
+/* Alto contraste */
+.alto-contraste {
+  filter: grayscale(1) contrast(1.5) !important;
+  background: #222 !important;
+  color: #fff !important;
+}
+.alto-contraste a { color: #ff0 !important; }
+
+/* Contraste negativo */
+.negative-contrast {
+  background: #000 !important;
+  color: #ff0 !important;
+  filter: invert(100%) !important;
+}
+
+/* Fonte grande */
+.fonte-grande, .fonte-grande * {
+  font-size: 120% !important;
+}
+
+/* Esconder botão do VLibras */
+[vw-access-button] {
+  display: none !important;
+}
+
+/* Outros filtros */
+
+html.high-contrast,
+html.high-contrast *:not(#btn-acessibilidade):not(#painel-acessibilidade),
+body.high-contrast,
+body.high-contrast *:not(#btn-acessibilidade):not(#painel-acessibilidade) {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+body.links-underline a {
+  text-decoration: underline !important;
+}
+body.readable-font * {
+  font-family: Arial, sans-serif !important;
+}
+</style>
+
+<div class="fab-container">
+  <div class="fab-actions">
+    <button class="fab-action" title="VerLibras" aria-label="Ativar VLibras">
+      <img src="https://vlibras.gov.br/app//assets/access_icon.svg" alt="VLibras" style="width:28px;height:28px;">
+    </button>
+    <button class="fab-action" title="Acessibilidade" id="btn-acessibilidade"><i class="fas fa-eye"></i></button>
+  </div>
+  <button class="fab-main" title="acessibilidade" id="acessibilidade" name="acessibilidade"><i class="fas fa-universal-access"></i></button>
+</div>
+
+<!-- Painel de acessibilidade -->
+<div class="pojo-a11y-toolbar-overlay" id="painel-acessibilidade" style="display:none; position:fixed; bottom:300px; right:40px; z-index:10000; background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.2); padding:16px;">
+  <div class="pojo-a11y-toolbar-inner">
+    <ul class="pojo-a11y-toolbar-items pojo-a11y-tools" style="list-style:none; padding:0; margin:0;">
+      <li class="pojo-a11y-toolbar-item"><a href="#" style="text-decoration: none;" class="pojo-a11y-toolbar-link" onclick="ajustarFonte('+')">Aumentar Letra</a></li>
+      <li class="pojo-a11y-toolbar-item"><a href="#" style="text-decoration: none;" class="pojo-a11y-toolbar-link" onclick="ajustarFonte('-')">Diminuir Letra</a></li>
+      <li class="pojo-a11y-toolbar-item"><a href="#" style="text-decoration: none;" class="pojo-a11y-toolbar-link" onclick="toggleClass('grayscale')">Tons de Cinza</a></li>
+      <li class="pojo-a11y-toolbar-item"><a href="#" style="text-decoration: none;" class="pojo-a11y-toolbar-link" onclick="toggleClass('high-contrast')">Alto Contraste</a></li>
+      <li class="pojo-a11y-toolbar-item"><a href="#" style="text-decoration: none;" class="pojo-a11y-toolbar-link" onclick="toggleClass('negative-contrast')">Contraste Negativo</a></li>
+      <li class="pojo-a11y-toolbar-item"><a href="#" style="text-decoration: none;" class="pojo-a11y-toolbar-link" onclick="toggleClass('links-underline')">Destacar Links</a></li>
+      <li class="pojo-a11y-toolbar-item"><a href="#" style="text-decoration: none;" class="pojo-a11y-toolbar-link" onclick="toggleClass('readable-font')">Fonte Legível</a></li>
+      <li class="pojo-a11y-toolbar-item"><a href="#" style="text-decoration: none;" class="pojo-a11y-toolbar-link" onclick="Leitura(); return false;">Iniciar Leitura</a></li>
+      <li class="pojo-a11y-toolbar-item"><a href="#" style="text-decoration: none;" class="pojo-a11y-toolbar-link" onclick="desativarLeitura(); return false;">Parar Leitura</a></li>
+      <li class="pojo-a11y-toolbar-item"><a href="#" style="text-decoration: none;" class="pojo-a11y-toolbar-link" onclick="resetAcessibilidade(event)">Reset</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- VLibras Widget -->
+<div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+  new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+<script>
+// Função para alternar alto contraste e aumentar fonte
+function toggleAccessibility() {
+  document.body.classList.toggle('alto-contraste');
+  document.body.classList.toggle('fonte-grande');
+}
+
+// Ativar VLibras ao clicar no botão
+document.querySelector('.fab-action[title="VerLibras"]').addEventListener('click', function() {
+  document.querySelector('[vw-access-button]').click();
+});
+
+// Mostra/oculta o painel ao clicar no botão 🦾
+document.getElementById('btn-acessibilidade').addEventListener('click', function(e) {
+  e.stopPropagation();
+  togglePainelAcessibilidade();
+});
+
+// Fecha o painel ao clicar fora dele
+document.addEventListener('click', function(e) {
+  const painel = document.getElementById('painel-acessibilidade');
+  if (painel.style.display === 'block' && !painel.contains(e.target) && e.target.id !== 'btn-acessibilidade') {
+    painel.style.display = 'none';
+  }
+});
+
+// Funções de acessibilidade
+let tamanhoFonte = 100;
+
+function ajustarFonte(acao) {
+  if (acao === '+') tamanhoFonte += 5;
+  else tamanhoFonte -= 5;
+  tamanhoFonte = Math.min(Math.max(tamanhoFonte, 50), 200);
+
+  const elementos = document.querySelectorAll(
+    'body *:not(.fab-container):not(.fab-container *):not(.pojo-a11y-toolbar-overlay):not(.pojo-a11y-toolbar-overlay *)'
+  );
+
+  elementos.forEach(el => {
+    el.style.fontSize = tamanhoFonte + '%';
+  });
+}
+
+function toggleClass(classe) {
+  document.body.classList.toggle(classe);
+}
+
+function resetAcessibilidade(event) {
+  if(event) event.preventDefault();
+  
+  const elementos = document.querySelectorAll('body *:not(#painel-acessibilidade):not(#painel-acessibilidade *)' +
+    ':not(#btn-acessibilidade):not(#btn-acessibilidade *)');
+
+  elementos.forEach(el => {
+    el.style.fontSize = '';
+  });
+
+  document.body.className = '';
+  tamanhoFonte = 100;
+}
+
+function togglePainelAcessibilidade() {
+  const painel = document.getElementById('painel-acessibilidade');
+  painel.style.display = (painel.style.display === 'none' || painel.style.display === '') ? 'block' : 'none';
+}
+
+let leituraAtiva = false;
+
+function Leitura() {
+  leituraAtiva = !leituraAtiva;
+  
+  const elementos = document.querySelectorAll('body *:not(script):not(style):not(#painel-acessibilidade *):not(#btn-acessibilidade)');
+  
+  elementos.forEach(el => {
+    if (leituraAtiva) {
+      el.addEventListener('mouseenter', iniciarLeitura);
+    } else {
+      el.removeEventListener('mouseenter', iniciarLeitura);
+    }
+  });
+}
+
+function iniciarLeitura(event) {
+  const texto = event.target.innerText || event.target.alt || '';
+  if (!texto) return;
+  window.speechSynthesis.cancel(); // cancela leitura anterior
+  const utterance = new SpeechSynthesisUtterance(texto);
+  window.speechSynthesis.speak(utterance);
+}
+
+function desativarLeitura() {
+  leituraAtiva = false;
+  window.speechSynthesis.cancel();
+
+  const elementos = document.querySelectorAll('body *:not(script):not(style):not(#painel-acessibilidade *):not(#btn-acessibilidade)');
+
+  elementos.forEach(el => {
+    el.removeEventListener('mouseenter', iniciarLeitura);
+  });
+}
+</script>
